@@ -2,3 +2,4 @@ system:
   admin:
     identity: scott
     secret: tiger
+    max-task-count: 3

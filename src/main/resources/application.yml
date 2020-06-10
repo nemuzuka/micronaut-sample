@@ -40,3 +40,8 @@ micronaut:
       logout-target-url: /login
       unauthorized-target-url: /login
       forbidden-target-url: /login
+system:
+  admin:
+    identity: set-to-admin-identity
+    secret: set-to-admin-secret
+    max-task-count: 1000

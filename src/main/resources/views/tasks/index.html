@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VSS micronaut sample</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+  <link rel="stylesheet" href="https://bulma.io/css/bulma-docs.min.css">
+  <link rel="stylesheet" href="/public/app.css">
+  <link rel="icon" href="/public/favicon.ico">
+</head>
+<body class="has-background-primary">
+
+<div class="bd-notice">
+  <div class="container">
+    <div class="bd-notice-body">
+      <p>
+        VSS micronaut sample
+      </p>
+    </div>
+  </div>
+</div>
+
+<section class="is-fullheight">
+    <div class="container">
+
+      <div class="box">
+        <h3 class="title is-3">Task 一覧</h3>
+
+        <div class="field">
+          <a class="button is-info" th:href="@{/tasks/add}">
+            Task 追加
+          </a>
+        </div>
+
+        <div class="columns">
+          <div class="column is-12">
+
+            <div th:if="${tasks != null && tasks.size() != 0}">
+
+              <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Task 名</th>
+                    <th>内容</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr th:each="task,iterStat : ${tasks}">
+
+                    <td th:text="${iterStat.count}" class="has-text-center">1</td>
+                    <td th:text="${task.taskName}">タスク名</td>
+                    <td>
+                        <th:block th:each="value, status : ${task.content.split('\r\n|\r|\n', -1)}">
+                          <th:block th:text="${value}"/>
+                          <br th:if="${!status.last}"/>
+                        </th:block>
+                    </td>
+                  </tr>
+                </tbody>
+
+              </table>
+
+            </div>
+
+            <div th:if="${tasks == null || tasks.size() == 0}">
+              <div class="notification is-danger">Task がありません。登録してください。</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+</section>
+</body>
+</html>

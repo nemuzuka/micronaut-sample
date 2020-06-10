@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VSS micronaut sample</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+  <link rel="stylesheet" href="https://bulma.io/css/bulma-docs.min.css">
+  <link rel="stylesheet" href="/public/app.css">
+  <link rel="icon" href="/public/favicon.ico">
+</head>
+<body class="has-background-primary">
+
+<div class="bd-notice">
+  <div class="container">
+    <div class="bd-notice-body">
+      <p>
+        VSS micronaut sample
+      </p>
+    </div>
+  </div>
+</div>
+
+<section class="is-fullheight">
+  <div class="container">
+
+    <div class="box">
+      <h3 class="title is-3">Task 登録</h3>
+
+      <div th:if="${errors != null && errors.get(null) != null}">
+        <div th:each="message : ${errors.get(null)}">
+          <div class="notification is-danger" th:text="${message}"></div>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column is-12">
+          <form method="post" th:action="@{/tasks/add}" th:object="${taskForm}">
+
+            <div class="field">
+              <label class="label">Task 名</label>
+              <div class="control">
+                <input class="input" type="text" name="taskName" th:value="*{taskName}">
+              </div>
+
+              <div th:if="${errors != null && errors.taskName != null}">
+                <div th:each="message : ${errors.taskName}">
+                  <p class="help is-danger" th:text="${message}"></p>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="field">
+              <label class="label">内容</label>
+              <div class="control">
+                <textarea class="textarea" name="content" th:utext="*{content}"></textarea>
+              </div>
+
+              <div th:if="${errors != null && errors.content != null}">
+                <div th:each="message : ${errors.content}">
+                  <p class="help is-danger" th:text="${message}"></p>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="field">
+              <div class="has-text-right">
+                <button type="submit" class="button is-success">登録する</button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

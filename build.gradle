@@ -56,7 +56,8 @@ dependencies {
     compile "io.micronaut:micronaut-security"
     compile "io.micronaut:micronaut-security-session"
 
-    runtimeOnly "org.thymeleaf:thymeleaf:${thymeleafVersion}"
+    implementation "io.micronaut:micronaut-views-thymeleaf"
+    implementation "org.thymeleaf:thymeleaf:${thymeleafVersion}"
 
     testImplementation "org.mockito:mockito-junit-jupiter:3.3.3"
     testImplementation "org.assertj:assertj-core:3.11.1"
