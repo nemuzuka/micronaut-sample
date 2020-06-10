@@ -1,0 +1,4 @@
+system:
+  admin:
+    identity: scott
+    secret: tiger

@@ -1,0 +1,42 @@
+micronaut:
+  application:
+    name: micronaut-sample
+  router:
+    static-resources:
+      default:
+        enabled: true
+        mapping: /public/**
+        paths: classpath:public
+  security:
+    enabled: true
+    intercept-url-map:
+      -
+        pattern: /login
+        access:
+          - isAnonymous()
+      -
+        pattern: /tasks/**
+        access:
+          - SYSTEM_ADMIN
+      -
+        pattern: /public/**
+        access:
+          - isAnonymous()
+      -
+        pattern: /**
+        access:
+          - isAuthenticated()
+    endpoints:
+      login:
+        enabled: true
+        path: /login
+      logout:
+        enabled: true
+        path: /logout
+    session:
+      enabled: true
+      login-success-target-url: /tasks
+      login-failure-target-url: /login
+      logout-target-url: /login
+      unauthorized-target-url: /login
+      forbidden-target-url: /login

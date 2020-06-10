@@ -1,0 +1,84 @@
+plugins {
+    id "net.ltgt.apt-eclipse" version "0.21"
+    id "com.github.johnrengelman.shadow" version "5.2.0"
+    id "application"
+    id 'com.diffplug.gradle.spotless' version '3.27.2'
+}
+
+
+
+version "0.1"
+group "micronaut.sample"
+
+repositories {
+    mavenCentral()
+    maven { url "https://jcenter.bintray.com" }
+}
+
+configurations {
+    // for dependencies that are needed for development only
+    developmentOnly 
+}
+
+dependencies {
+    // https://docs.micronaut.io/latest/guide/languageSupport.html#lombok
+    compileOnly "org.projectlombok:lombok:$projectLombokVersion"
+    testCompileOnly "org.projectlombok:lombok:$projectLombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$projectLombokVersion"
+    testAnnotationProcessor "org.projectlombok:lombok:$projectLombokVersion"
+
+    annotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
+    annotationProcessor "io.micronaut:micronaut-inject-java"
+    annotationProcessor "io.micronaut:micronaut-validation"
+    implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
+    implementation "io.micronaut:micronaut-inject"
+    implementation "io.micronaut:micronaut-validation"
+    implementation "io.micronaut:micronaut-runtime"
+    implementation "javax.annotation:javax.annotation-api"
+    implementation "io.micronaut:micronaut-http-server-netty"
+    implementation "io.micronaut:micronaut-http-client"
+    runtimeOnly "ch.qos.logback:logback-classic:1.2.3"
+    testAnnotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
+    testAnnotationProcessor "io.micronaut:micronaut-inject-java"
+    testImplementation platform("io.micronaut:micronaut-bom:$micronautVersion")
+    testImplementation "org.junit.jupiter:junit-jupiter-api"
+    testImplementation "io.micronaut.test:micronaut-test-junit5"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
+
+    annotationProcessor "io.micronaut:micronaut-security"
+    compile "io.micronaut:micronaut-security"
+    compile "io.micronaut:micronaut-security-session"
+
+    runtimeOnly "org.thymeleaf:thymeleaf:${thymeleafVersion}"
+
+    testImplementation "org.mockito:mockito-junit-jupiter:3.3.3"
+    testImplementation "org.assertj:assertj-core:3.11.1"
+    testImplementation "org.jsoup:jsoup:1.13.1"
+}
+
+test.classpath += configurations.developmentOnly
+
+mainClassName = "micronaut.sample.Application"
+// use JUnit 5 platform
+test {
+    useJUnitPlatform()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+tasks.withType(JavaCompile){
+    options.encoding = "UTF-8"
+    options.compilerArgs.add('-parameters')
+}
+
+shadowJar {
+    mergeServiceFiles()
+}
+
+tasks.withType(JavaExec) {
+    classpath += configurations.developmentOnly
+    jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
+}
