@@ -51,7 +51,7 @@
                 <tbody>
                   <tr th:each="task,iterStat : ${tasks}">
 
-                    <td th:text="${iterStat.count}" class="has-text-center">1</td>
+                    <td th:text="${iterStat.count}" class="has-text-centered">1</td>
                     <td th:text="${task.taskName}">タスク名</td>
                     <td>
                         <th:block th:each="value, status : ${task.content.split('\r\n|\r|\n', -1)}">
