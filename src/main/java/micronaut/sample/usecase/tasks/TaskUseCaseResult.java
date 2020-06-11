@@ -23,6 +23,9 @@ public class TaskUseCaseResult {
    * @return 生成インスタンス
    */
   public static TaskUseCaseResult fromTask(Task task) {
-    return new TaskUseCaseResult(task.getTaskId(), task.getTaskName(), task.getContent());
+    var taskId = task.getTaskId();
+    var taskDetail = task.getTaskDetail();
+    return new TaskUseCaseResult(
+        taskId.getValue(), taskDetail.getTaskName(), taskDetail.getContent());
   }
 }

@@ -50,7 +50,7 @@ http://localhost:8080
 
 ### プロファイル
 
-`MICRONAUT_ENVIRONMENTS=local` が SpringBoot で言うところの `-Plocal` になります。
+`MICRONAUT_ENVIRONMENTS=local` が SpringBoot で言うところの `-Dspring.profiles.active=local` になります。
 
 このようにすることで、プロパティは
 

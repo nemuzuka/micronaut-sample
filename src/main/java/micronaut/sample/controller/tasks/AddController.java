@@ -23,7 +23,7 @@ import micronaut.sample.controller.CustumConstraintViolation;
 import micronaut.sample.exceptions.OverTaskException;
 import micronaut.sample.usecase.tasks.TaskUseCase;
 
-@Controller("/tasks")
+@Controller("/tasks/add")
 @RequiredArgsConstructor
 public class AddController {
 
@@ -36,7 +36,7 @@ public class AddController {
    *
    * @return Task 新規登録画面表示用データ
    */
-  @Get("/add")
+  @Get
   @View("tasks/edit")
   public HttpResponse<Map<String, Object>> index() {
     Map<String, Object> responseMap = Map.of("taskForm", new TaskForm());
@@ -49,9 +49,9 @@ public class AddController {
    * @param taskForm Form
    * @return レスポンス
    */
-  @Post("/add")
+  @Post
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-  public HttpResponse<String> addClient(@Body @Valid TaskForm taskForm) {
+  public HttpResponse<String> addTask(@Body @Valid TaskForm taskForm) {
     try {
       var createTaskUseCaseRequest = taskForm.toCreateTaskUseCaseRequest();
       taskUseCase.createTask(createTaskUseCaseRequest);

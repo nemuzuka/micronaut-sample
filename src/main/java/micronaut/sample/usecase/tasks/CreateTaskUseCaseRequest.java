@@ -15,6 +15,8 @@ public class CreateTaskUseCaseRequest {
   String content;
 
   public Task toTask() {
-    return new Task(UUID.randomUUID().toString(), taskName, content);
+    var taskId = new Task.TaskId(UUID.randomUUID().toString());
+    var taskDetail = new Task.TaskDetail(taskName, content);
+    return new Task(taskId, taskDetail);
   }
 }

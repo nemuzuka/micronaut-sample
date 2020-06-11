@@ -1,0 +1,5 @@
+system:
+  admin:
+    identity: scott-test
+    secret: tiger-test
+    max-task-count: 2

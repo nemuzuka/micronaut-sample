@@ -48,4 +48,9 @@ public class TaskUseCase {
   public List<TaskUseCaseResult> allTask() {
     return TASKS.stream().map(TaskUseCaseResult::fromTask).collect(Collectors.toList());
   }
+
+  /** Task 初期化. */
+  public void deleteAll() {
+    TASKS.clear();
+  }
 }
