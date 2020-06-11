@@ -1,3 +1,5 @@
+![CircleCI](https://circleci.com/gh/nemuzuka/micronaut-sample.svg?style=shield&circle-token=ffa249da071f2247cd527e62d3d7354e7216ee2c)
+
 # これは何？
 
 [micronaut](https://micronaut.io/) の 1.3.x のサンプルプロジェクト。  
@@ -37,9 +39,12 @@ $ cp _sample-application-local.yml application-local.yml
 $ MICRONAUT_ENVIRONMENTS=local ./gradlew run
 ```
 
-> 22:53:54.646 [main] INFO  i.m.context.env.DefaultEnvironment - Established active environments: [local]
-> 22:53:55.635 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 1049ms. Server Running: http://localhost:8080
+で
 
+```
+22:53:54.646 [main] INFO  i.m.context.env.DefaultEnvironment - Established active environments: [local]
+22:53:55.635 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 1049ms. Server Running: http://localhost:8080
+```
 と表示されたら
 
 http://localhost:8080
