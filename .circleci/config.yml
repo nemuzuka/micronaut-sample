@@ -41,10 +41,11 @@ jobs:
 
       - store_artifacts:
           path: build/reports
+          prefix: jacoco
 
       - store_test_results:
           path: build/test-results
-          destination: test-results
+          prefix: test-results
 
 workflows:
   version: 2
