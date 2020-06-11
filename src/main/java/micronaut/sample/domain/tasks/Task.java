@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import lombok.Value;
 
 /**
  * Task ドメイン.
@@ -20,11 +21,19 @@ import lombok.ToString;
 public class Task {
 
   /** task_id. */
-  private final String taskId;
+  private final TaskId taskId;
 
-  /** task_name. */
-  private final String taskName;
+  /** task 詳細. */
+  private final TaskDetail taskDetail;
 
-  /** content. */
-  private final String content;
+  @Value
+  public static class TaskId {
+    String value;
+  }
+
+  @Value
+  public static class TaskDetail {
+    String taskName;
+    String content;
+  }
 }
