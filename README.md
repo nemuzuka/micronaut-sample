@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/nemuzuka/micronaut-sample.svg?style=shield&circle-token=ffa249da071f2247cd527e62d3d7354e7216ee2c)]
+![CircleCI](https://circleci.com/gh/nemuzuka/micronaut-sample.svg?style=shield&circle-token=ffa249da071f2247cd527e62d3d7354e7216ee2c)
 
 # これは何？
 
