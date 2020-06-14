@@ -26,7 +26,7 @@ public class GlobalErrorHandler {
    */
   @Error(status = HttpStatus.NOT_FOUND, global = true)
   public HttpResponse<?> notFoundForPage() {
-    return HttpResponse.ok(viewsRenderer.render("notFound", Collections.EMPTY_MAP))
+    return HttpResponse.notFound(viewsRenderer.render("notFound", Collections.EMPTY_MAP))
         .contentType(MediaType.TEXT_HTML);
   }
 
@@ -37,7 +37,8 @@ public class GlobalErrorHandler {
    */
   @Error(status = HttpStatus.FORBIDDEN, global = true)
   public HttpResponse<?> forbiddenForPage() {
-    return HttpResponse.ok(viewsRenderer.render("forbidden", Collections.EMPTY_MAP))
+    return HttpResponse.status(HttpStatus.FORBIDDEN)
+        .body(viewsRenderer.render("forbidden", Collections.EMPTY_MAP))
         .contentType(MediaType.TEXT_HTML);
   }
 
