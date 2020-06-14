@@ -1,5 +1,6 @@
 package micronaut.sample.controller;
 
+import io.micronaut.http.HttpMethod;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.session.http.SessionForRequest;
 import io.micronaut.views.ModelAndView;
@@ -33,7 +34,7 @@ public class CsrfViewModelProcessor implements ViewModelProcessor {
   public void process(
       @Nonnull HttpRequest<?> request, @Nonnull ModelAndView<Map<String, Object>> modelAndView) {
 
-    if (Objects.equals(request.getMethodName(), "GET")) {
+    if (Objects.equals(request.getMethod(), HttpMethod.GET)) {
       setCsrfForGet(request, modelAndView);
     } else {
       setCsrfForPost(request, modelAndView);

@@ -4,6 +4,7 @@ import io.micronaut.core.async.publisher.Publishers;
 import io.micronaut.http.HttpMethod;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
+import io.micronaut.http.HttpStatus;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.MutableHttpResponse;
 import io.micronaut.http.annotation.Filter;
@@ -48,7 +49,8 @@ public class CsrfFilter extends OncePerRequestHttpServerFilter {
       return chain.proceed(request);
     }
     return Publishers.just(
-        HttpResponse.ok(viewsRenderer.render("forbidden", Collections.EMPTY_MAP))
+        HttpResponse.status(HttpStatus.FORBIDDEN)
+            .body(viewsRenderer.render("forbidden", Collections.EMPTY_MAP))
             .contentType(MediaType.TEXT_HTML));
   }
 
