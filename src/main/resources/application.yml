@@ -8,7 +8,17 @@ micronaut:
         mapping: /public/**
         paths: classpath:public
   security:
-    enabled: true
+    authentication: session
+    redirect:
+      login-success: /tasks
+      login-failure: /login
+      logout: /login
+      unauthorized:
+        enabled: true
+        url: /login
+      forbidden:
+        enabled: true
+        url: /login
     intercept-url-map:
       -
         pattern: /login
@@ -33,13 +43,7 @@ micronaut:
       logout:
         enabled: true
         path: /logout
-    session:
-      enabled: true
-      login-success-target-url: /tasks
-      login-failure-target-url: /login
-      logout-target-url: /login
-      unauthorized-target-url: /login
-      forbidden-target-url: /login
+        get-allowed: true
 system:
   admin:
     identity: set-to-admin-identity
