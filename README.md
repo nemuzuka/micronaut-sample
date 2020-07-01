@@ -2,7 +2,7 @@
 
 # これは何？
 
-[micronaut](https://micronaut.io/) の 1.3.x のサンプルプロジェクト。  
+[micronaut](https://micronaut.io/) の 2.0.0 のサンプルプロジェクト。  
 SpringBoot のような使い方でアプリケーションを作ってみる。
 
 # 動作環境

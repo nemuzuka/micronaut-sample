@@ -7,8 +7,7 @@ import io.micronaut.security.authentication.AuthenticationProvider;
 import io.micronaut.security.authentication.AuthenticationRequest;
 import io.micronaut.security.authentication.AuthenticationResponse;
 import io.micronaut.security.authentication.UserDetails;
-import io.reactivex.BackpressureStrategy;
-import io.reactivex.Flowable;
+import io.reactivex.Maybe;
 import java.util.Collections;
 import java.util.Objects;
 import javax.annotation.Nullable;
@@ -25,13 +24,6 @@ public class AuthenticationProviderUserPassword implements AuthenticationProvide
 
   private final SystemConfigurationProperties systemConfigurationProperties;
 
-  @Override
-  @Deprecated
-  public Publisher<AuthenticationResponse> authenticate(
-      AuthenticationRequest authenticationRequest) {
-    throw new UnsupportedOperationException("not support.");
-  }
-
   /**
    * 認証処理.
    *
@@ -42,24 +34,25 @@ public class AuthenticationProviderUserPassword implements AuthenticationProvide
   @Override
   public Publisher<AuthenticationResponse> authenticate(
       @Nullable HttpRequest<?> httpRequest, AuthenticationRequest<?, ?> authenticationRequest) {
-    return Flowable.create(
-        emitter -> {
-          // 認証処理。本当は DB にアクセスするが、雑にプロパティで管理
-          if (Objects.equals(
-                  authenticationRequest.getIdentity(), systemConfigurationProperties.getIdentity())
-              && Objects.equals(
-                  authenticationRequest.getSecret(), systemConfigurationProperties.getSecret())) {
-            // 認証成功時、UserDetails を設定する
-            var userDetails =
-                new UserDetails(
-                    (String) authenticationRequest.getIdentity(),
-                    Collections.singletonList(Role.SYSTEM_ADMIN.name()));
-            emitter.onNext(userDetails);
-          } else {
-            emitter.onError(new AuthenticationException(new AuthenticationFailed()));
-          }
-          emitter.onComplete();
-        },
-        BackpressureStrategy.ERROR);
+    return Maybe.<AuthenticationResponse>create(
+            emitter -> {
+              // 認証処理。本当は DB にアクセスするが、雑にプロパティで管理
+              if (Objects.equals(
+                      authenticationRequest.getIdentity(),
+                      systemConfigurationProperties.getIdentity())
+                  && Objects.equals(
+                      authenticationRequest.getSecret(),
+                      systemConfigurationProperties.getSecret())) {
+                // 認証成功時、UserDetails を設定する
+                var userDetails =
+                    new UserDetails(
+                        (String) authenticationRequest.getIdentity(),
+                        Collections.singletonList(Role.SYSTEM_ADMIN.name()));
+                emitter.onSuccess(userDetails);
+              } else {
+                emitter.onError(new AuthenticationException(new AuthenticationFailed()));
+              }
+            })
+        .toFlowable();
   }
 }
