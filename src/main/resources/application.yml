@@ -44,6 +44,10 @@ micronaut:
         enabled: true
         path: /logout
         get-allowed: true
+flyway:
+  datasources:
+    default:
+      locations: db/migration
 system:
   admin:
     identity: set-to-admin-identity

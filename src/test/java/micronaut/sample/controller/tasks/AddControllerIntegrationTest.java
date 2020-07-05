@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import micronaut.sample.controller.IntegrationTestHelper;
 import micronaut.sample.usecase.tasks.TaskUseCase;
 import micronaut.sample.usecase.tasks.TaskUseCaseResult;
+import org.flywaydb.core.Flyway;
 import org.jsoup.Jsoup;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -25,11 +26,14 @@ class AddControllerIntegrationTest {
 
   @Inject IntegrationTestHelper integrationTestHelper;
 
+  @Inject Flyway flyway;
+
   @Inject TaskUseCase taskUseCase;
 
   @BeforeEach
   void setup() {
-    taskUseCase.deleteAll(); // RDBMS 使わない弊害が...
+    flyway.clean();
+    flyway.migrate();
   }
 
   @Test
@@ -55,8 +59,6 @@ class AddControllerIntegrationTest {
   @Test
   @DisplayName("POST /tasks/add のテスト")
   void testAdd() throws Exception {
-    assertThat(taskUseCase.allTask()).isEmpty();
-
     // setup
     var client = integrationTestHelper.login();
     var csrfToken = integrationTestHelper.getCsrfToken(client, "/tasks/add"); // csrf トークンを取得

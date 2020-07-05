@@ -16,11 +16,8 @@ SpringBoot のような使い方でアプリケーションを作ってみる。
 * [Thymeleaf と連携](https://micronaut-projects.github.io/micronaut-views/latest/guide/#thymeleaf)
 * [Bean Validation](https://docs.micronaut.io/1.2.6/guide/index.html#beanValidation)
 * [Error Handling](https://docs.micronaut.io/1.2.6/guide/index.html#errorHandling)
-
-## 今のところやらないこと
-
 * RDBMS との連携
-    * やるなら [doma2](https://doma.readthedocs.io/en/latest/) だと思うけど、micronaut のサンプルなので
+    * [doma2](https://doma.readthedocs.io/en/latest/) を使ったサンプル
 
 # 開発用コマンド
 
