@@ -12,3 +12,5 @@ out/
 .settings
 .classpath
 /src/main/resources/application-local.yml
+/src/main/generated/
+/src/test/generated_tests/
